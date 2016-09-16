@@ -203,11 +203,15 @@ class ActsAsArchive
     end
     
     module InstanceMethods
-      def delete_sql_with_archive(sql, name = nil, binds = [])
+      def delete_sql_with_archive(*args) # sql, name = nil, binds = []
+        Rails.logger.info args.inspect
+        sql = args[0]
+        name = args[1] || nil
+        binds = args[2] || []
         @mutex ||= Mutex.new
         @mutex.synchronize do
           unless ActsAsArchive.disabled
-            from, where = /DELETE FROM (.+)/i.match(sql.to_sql)[1].split(/\s+WHERE\s+/i, 2)
+            from, where = /DELETE FROM (.+)/i.match(sql)[1].split(/\s+WHERE\s+/i, 2)
             from = from.strip.gsub(/[`"]/, '').split(/\s*,\s*/)
         
             ActsAsArchive.find(from).each do |config|
