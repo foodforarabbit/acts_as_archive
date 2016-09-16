@@ -203,7 +203,7 @@ class ActsAsArchive
     end
     
     module InstanceMethods
-      def delete_sql_with_archive(sql, name = nil)
+      def delete_sql_with_archive(sql, name = nil, binds = [])
         @mutex ||= Mutex.new
         @mutex.synchronize do
           unless ActsAsArchive.disabled
@@ -216,7 +216,7 @@ class ActsAsArchive
           end
         end
         
-        delete_sql_without_archive(sql, name)
+        delete_sql_without_archive(sql, name, binds)
       end
     end
   end
