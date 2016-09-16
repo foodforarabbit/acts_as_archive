@@ -206,6 +206,7 @@ class ActsAsArchive
       def delete_sql_with_archive(*args) # sql, name = nil, binds = []
         Rails.logger.info args.inspect
         sql = args[0]
+        $testing = sql
         name = args[1] || nil
         binds = args[2] || []
         @mutex ||= Mutex.new
