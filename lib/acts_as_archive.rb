@@ -195,8 +195,8 @@ class ActsAsArchive
         base.send :include, InstanceMethods
         base.class_eval do
           unless method_defined?(:delete_sql_without_archive)
-            alias_method :delete_sql_without_archive, :delete_sql
-            alias_method :delete_sql, :delete_sql_with_archive
+            alias_method :delete_sql_without_archive, :delete
+            alias_method :delete, :delete_sql_with_archive
           end
         end
       end
@@ -223,7 +223,8 @@ class ActsAsArchive
 end
 
 ::ActiveRecord::Base.send(:include, ::ActsAsArchive::Base)
-::ActiveRecord::ConnectionAdapters::DatabaseStatements.send(:include, ::ActsAsArchive::DatabaseStatements)
+::ActiveRecord::Base.connection.send(:include, ::ActsAsArchive::DatabaseStatements)
+# ::ActiveRecord::ConnectionAdapters::DatabaseStatements.send(:include, ::ActsAsArchive::DatabaseStatements)
 
 require "acts_as_archive/adapters/rails#{Rails.version[0..0]}" if defined?(Rails)
 require "acts_as_archive/adapters/sinatra" if defined?(Sinatra)
