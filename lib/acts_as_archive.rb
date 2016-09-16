@@ -207,7 +207,7 @@ class ActsAsArchive
         @mutex ||= Mutex.new
         @mutex.synchronize do
           unless ActsAsArchive.disabled
-            from, where = /DELETE FROM (.+)/i.match(sql)[1].split(/\s+WHERE\s+/i, 2)
+            from, where = /DELETE FROM (.+)/i.match(sql.to_sql)[1].split(/\s+WHERE\s+/i, 2)
             from = from.strip.gsub(/[`"]/, '').split(/\s*,\s*/)
         
             ActsAsArchive.find(from).each do |config|
