@@ -2,7 +2,7 @@ active_wrapper-solo:
   repo: git@github.com:winton/active_wrapper.git
   path: vendor
 also_migrate:
-  repo: git@github.com:winton/also_migrate.git
+  repo: git@github.com:foodforarabbit/also_migrate.git
   path: vendor
 framework_fixture:
   repo: git@github.com:winton/framework_fixture.git
