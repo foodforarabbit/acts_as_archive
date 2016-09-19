@@ -5,5 +5,6 @@ if Rails.root.nil?
     end
   end
 else
+	Rails.logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx initializer"
   ActsAsArchive.load_from_yaml(Rails.root)
 end
