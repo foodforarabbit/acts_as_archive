@@ -206,18 +206,12 @@ class ActsAsArchive
       def delete_sql_with_archive(*args) # sql, name = nil, binds = []
         Rails.logger.info args.inspect
         sql = args[0]
-        $testing = sql
-        $testingargs = args
-        $testing2 = self
         name = args[1] || nil
         binds = args[2] || []
         @mutex ||= Mutex.new
         @mutex.synchronize do
           unless ActsAsArchive.disabled
             sql_str = to_sql(sql, binds)
-            # b = Arel::Visitors::ToSql.new sql.engine.connection
-            # sql_str = b.accept sql.ast
-            # sql_str = sql.to_sql
             from, where = /DELETE FROM (.+)/i.match(sql_str)[1].split(/\s+WHERE\s+/i, 2)
             from = from.strip.gsub(/[`"]/, '').split(/\s*,\s*/)
         
