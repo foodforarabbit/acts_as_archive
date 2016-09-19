@@ -207,6 +207,7 @@ class ActsAsArchive
         Rails.logger.info args.inspect
         sql = args[0]
         $testing = sql
+        $testingargs = args
         name = args[1] || nil
         binds = args[2] || []
         @mutex ||= Mutex.new
