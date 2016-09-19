@@ -85,7 +85,6 @@ class ActsAsArchive
 
     module ClassMethods
       def acts_as_archive(options={})
-        Rails.logger.info "xxxxxxxxxxxxxxxxx options #{options}"
         return unless ActsAsArchive.find(self).empty?
         
         ActsAsArchive.configuration ||= []
