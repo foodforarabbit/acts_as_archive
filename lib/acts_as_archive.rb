@@ -113,10 +113,10 @@ class ActsAsArchive
           klass = eval(options[:class]) rescue nil
 
           table_split = options[:table].split('.')
-          if table_split.length > 1
-            options[:table] = table_split[-1]
-            options[:database] = table_split[-2]
-          end
+          # if table_split.length > 1
+          #   options[:table] = table_split[-1]
+          #   options[:database] = table_split[-2]
+          # end
           
           if klass
             klass.send :table_name=, options[:table]
